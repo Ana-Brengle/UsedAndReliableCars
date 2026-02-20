@@ -82,11 +82,6 @@
 
                         </div>
                     }
-                    <button type="submit"
-                            class="w-full py-4 mt-4 rounded-lg bg-[var(--electric)] text-white font-bold text-lg
-                       hover:bg-violet-700 hover:scale-[1.02] transition-all shadow-lg active:scale-95">
-                        Search 
-                    </button>
                 </form>
             </div>
             <!-- RIGHT SIDE (Heading + Buttons) -->
@@ -140,6 +135,78 @@
             </div>
         </div>
     </section>
+    <div class="sm:col-span-6">
+        <button type="button" id="searchBtn" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            Search Cars
+        </button>
+        <span id="loading" class="ml-4 text-indigo-600 hidden">Searching...</span>
+    </div>
+</div>
+    <div id="results" class="mt-8"></div>
+
+
+@section Scripts {
+        <script>
+            document.getElementById('searchBtn').addEventListener('click', async function () {
+                const loading = document.getElementById('loading');
+                const resultsDiv = document.getElementById('results');
+
+                loading.classList.remove('hidden');
+                resultsDiv.innerHTML = '';
+
+                const params = new URLSearchParams();
+
+                const make = document.getElementById('make').value;
+                const year = document.getElementById('year').value;
+                const model = document.getElementById('model').value;
+                const priceMax = document.getElementById('priceMax').value;
+                const zip = document.getElementById('zip').value;
+                const radius = document.getElementById('radius').value;
+
+                if (make) params.append('make', make);
+                if (year) params.append('year', year);
+                if (model) params.append('model', model);
+                if (priceMax) params.append('priceMax', priceMax);
+                if (zip) params.append('zip', zip);
+                if (radius) params.append('radius', radius);
+
+                try {
+                    const response = await fetch(`/api/cars/search?${params.toString()}`);
+                    const data = await response.json();
+
+                    if (!response.ok) {
+                        throw new Error(data.error || 'Search failed');
+                    }
+
+                    if (data.listings && data.listings.length > 0) {
+                        resultsDiv.innerHTML = `
+                            <p class="text-indigo-600 font-semibold mb-4">Found ${data.num_found} cars</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                ${data.listings.map(car => `
+                                    <div class="border rounded-lg p-4 shadow-sm bg-white">
+                                        <h3 class="font-bold text-indigo-600">${car.heading || `${car.year} ${car.make} ${car.model}`}</h3>
+                                        <p class="text-green-600 font-semibold">$${car.price?.toLocaleString() || 'N/A'}</p>
+                                        <p class="text-gray-600">${car.miles?.toLocaleString() || 'N/A'} miles</p>
+                                        <p class="text-gray-600">${car.dealer?.city || ''}, ${car.dealer?.state || ''}</p>
+                                        ${car.exterior_color ? `<p class="text-gray-500 text-sm">Color: ${car.exterior_color}</p>` : ''}
+                                        ${car.vdp_url ? `<a href="${car.vdp_url}" target="_blank" rel="noopener noreferrer" class="inline-block mt-2 text-sm text-indigo-600 hover:text-indigo-800 underline">View Details</a>` : ''}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        `;
+                    } else {
+                        resultsDiv.innerHTML = '<p class="text-gray-600">No cars found matching your criteria.</p>';
+                    }
+                } catch (error) {
+                    resultsDiv.innerHTML = `<p class="text-red-600">Error: ${error.message}</p>`;
+                } finally {
+                    loading.classList.add('hidden');
+                }
+            });
+        </script>
+
+}
+
 
     @* ai section *@
     <section class="relative flex w-screen line-bg py-16 px-8 justify-center min-h-screen">

@@ -19,10 +19,10 @@ namespace UsedAndReliableCars.Controllers.api
         }
 
         [HttpGet("search")]
-        public async Task<IActionResult> Search(string? make, string? model, int? year, decimal? priceMax, string? zip, int? radius)
+        public async Task<IActionResult> Search(string? make, string? model, string? year, decimal? priceMax, string? zip, int? radius)
         {
             var apiKey = _configuration["MarketCheck:ApiKey"];
-            var url = $"search/car/AutoGems.ai/active?api_key={apiKey}";
+            var url = $"search/car/active?api_key={apiKey}";
 
             if (!string.IsNullOrEmpty(make)) {
                 url += $"&make={make}";
@@ -30,7 +30,7 @@ namespace UsedAndReliableCars.Controllers.api
             if (!string.IsNullOrEmpty(model)) {
                 url += $"&model={model}";
             }
-            if (year.HasValue)
+            if (!string.IsNullOrEmpty(year))
             {
                 url += $"&year={year}";
             }

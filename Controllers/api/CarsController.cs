@@ -32,11 +32,11 @@ namespace UsedAndReliableCars.Controllers.api
             }
             if (!string.IsNullOrEmpty(year))
             {
-                url += $"&year={year}";
+                url += $"&year_range={year}";
             }
             if (priceMax.HasValue)
             {
-                url += $"&price_max={priceMax}";
+                url += $"&price_range=0-{priceMax}";
             }
             if (radius.HasValue)
             {

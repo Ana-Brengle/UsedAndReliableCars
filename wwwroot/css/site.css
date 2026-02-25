@@ -418,3 +418,21 @@
         box-shadow: 0 4px 18px rgba(124, 58, 237, 0.25);
     }
 
+@keyframes industrial-stream {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.animate-industrial-stream {
+    display: flex;
+    animation: industrial-stream 50s linear infinite;
+}
+
+.pause-stream:hover {
+    animation-play-state: paused;
+}

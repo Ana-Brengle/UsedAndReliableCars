@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Mvc;
 using UsedAndReliableCars.Models;
+using UsedAndReliableCars.ViewModels;
 
 namespace UsedAndReliableCars.Controllers
 {
@@ -90,12 +92,20 @@ namespace UsedAndReliableCars.Controllers
         };
         public IActionResult Index()
         {
-            var model = new UsedCar
+            var model = new PagedResult<UsedCar>
             {
-                UsedCars = usedCars // your list
+                Items = usedCars,
+                PageNumber = 1,
+                PageSize = usedCars.Count,
+                TotalCount = usedCars.Count,
+                //UsedCars = usedCars // your list
             };
 
             return View(model);
+        }
+        public IActionResult About()
+        {
+            return View();
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿@model UsedCar
+﻿@model UsedAndReliableCars.ViewModels.PagedResult<UsedAndReliableCars.Models.UsedCar>
 @{
-    ViewData["Title"] = "TrustRide - Find the cheapest and most reliable used cars near you!";
+    ViewData["Title"] = "AutoGems.ai - Find the cheapest and most reliable used cars near you!";
 }
 <div class="">
 
@@ -11,7 +11,7 @@
 
         <div class="container mx-auto grid lg:grid-cols-2 gap-12 items-center px-4 py-16 md:py-32 md:px-10 lg:px-32 xl:max-w-6xl z-10">
 
-            
+
             <!-- LEFT SIDE (Form) -->
             <div id="bottomSection" class="order-2 lg:order-1 bg-white shadow-xl rounded-2xl px-10 py-14">
                 <h1 class="text-4xl font-extrabold text-gray-900">
@@ -26,7 +26,7 @@
                 </p>
                 <div class="flex">
                     <a href="https://www.consumerreports.org/cars/best-used-cars-10-top-picks-a8027733372/#used-car-top-picks-under-10000" target="_blank">
-                        <img src="~/images/ConsumerReportLogo.png"  alt="Consumer Reports Logo" class="h-12 mt-4 cursor-pointer" />
+                        <img src="~/images/ConsumerReportLogo.png" alt="Consumer Reports Logo" class="h-12 mt-4 cursor-pointer" />
                     </a>
                     <a href="https://www.ramseysolutions.com/insurance/new-car-vs-used-car" target="_blank">
                         <img src="~/images/RamseyLogo.jpg" alt="Dave Ramsey Logo" class="h-12 mt-4 cursor-pointer" />
@@ -35,7 +35,7 @@
 
                 <form class="mt-10 space-y-5">
                     @{
-                        var grouped = Model.UsedCars
+                        var grouped = Model.Items
                         .GroupBy(c => c.PriceCategory)
                         .OrderBy(g => g.Key);
                     }
@@ -92,7 +92,7 @@
             <!-- RIGHT SIDE (Heading + Buttons) -->
             <div class="order-1 lg:order-2 text-center lg:text-left">
                 <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight text-white drop-shadow-lg">
-                    TrustRide
+                    AutoGems.ai
                 </h1>
 
                 <p class="mt-8 mb-12 text-lg text-gray-100 drop-shadow-md">
@@ -140,62 +140,62 @@
             </div>
         </div>
     </section>
-  
+
 </div>
-    <div id="results" class="mt-8"></div>
+<div id="results" class="mt-8"></div>
 
 
-    @* ai section *@
-    <section class="relative flex w-screen line-bg py-16 px-8 justify-center min-h-screen">
+@* ai section *@
+<section class="relative flex w-screen line-bg py-16 px-8 justify-center min-h-screen">
 
-        <!-- Top fade (into previous section) -->
-        <div class="absolute top-0 left-0 w-full h-32
+    <!-- Top fade (into previous section) -->
+    <div class="absolute top-0 left-0 w-full h-32
                 bg-gradient-to-t from-transparent to-white
                 pointer-events-none"></div>
 
-        <!-- Bottom fade (into next section) -->
-        <div class="absolute bottom-0 left-0 w-full h-32
+    <!-- Bottom fade (into next section) -->
+    <div class="absolute bottom-0 left-0 w-full h-32
                 bg-gradient-to-b from-transparent to-white
-                pointer-events-none"></div> 
+                pointer-events-none"></div>
 
-        <div class="max-w-8xl mx-auto gap-10 text-center transition">
-            <div>
-                <h3 class="text-2xl font-bold mb-2 text-white">AI Integration</h3>
-                <p class="text-gray-200">Ask our ai for help finding the car that fits your exact needs (Coming Soon)</p>
+    <div class="max-w-8xl mx-auto gap-10 text-center transition">
+        <div>
+            <h3 class="text-2xl font-bold mb-2 text-white">AI Integration</h3>
+            <p class="text-gray-200">Ask our ai for help finding the car that fits your exact needs (Coming Soon)</p>
 
-                <div id="askAiButton"
-                     class="outer-cont flex items-center gap-2 cursor-pointer duration-500 transform">
+            <div id="askAiButton"
+                 class="outer-cont flex items-center gap-2 cursor-pointer duration-500 transform">
 
-                    <!-- SVG unchanged -->
-                    <svg viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
-                        <g fill="none">
-                            <path d="m12.594 23.258l-.012.002l-.071.035l-.02.004l-.014-.004l-.071-.036q-.016-.004-.024.006l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.016-.018m.264-.113l-.014.002l-.184.093l-.01.01l-.003.011l.018.43l.005.012l.008.008l.201.092q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.003-.011l.018-.43l-.003-.012l-.01-.01z"></path>
-                            <path d="M9.107 5.448c.598-1.75 3.016-1.803 3.725-.159l.06.16l.807 2.36a4 4 0 0 0 2.276 2.411l.217.081l2.36.806c1.75.598 1.803 3.016.16 3.725l-.16.06l-2.36.807a4 4 0 0 0-2.412 2.276l-.081.216l-.806 2.361c-.598 1.75-3.016 1.803-3.724.16l-.062-.16l-.806-2.36a4 4 0 0 0-2.276-2.412l-.216-.081l-2.36-.806c-1.751-.598-1.804-3.016-.16-3.724l.16-.062l2.36-.806A4 4 0 0 0 8.22 8.025l.081-.216zM11 6.094l-.806 2.36a6 6 0 0 1-3.49 3.649l-.25.091l-2.36.806l2.36.806a6 6 0 0 1 3.649 3.49l.091.25l.806 2.36l.806-2.36a6 6 0 0 1 3.49-3.649l.25-.09l2.36-.807l-2.36-.806a6 6 0 0 1-3.649-3.49l-.09-.25zM19 2a1 1 0 0 1 .898.56l.048.117l.35 1.026l1.027.35a1 1 0 0 1 .118 1.845l-.118.048l-1.026.35l-.35 1.027a1 1 0 0 1-1.845.117l-.048-.117l-.35-1.026l-1.027-.35a1 1 0 0 1-.118-1.845l.118-.048l1.026-.35l.35-1.027A1 1 0 0 1 19 2"
-                                  fill="currentColor"></path>
-                        </g>
-                    </svg>
-                    Ask Our AI for Help
-                </div>
+                <!-- SVG unchanged -->
+                <svg viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+                    <g fill="none">
+                        <path d="m12.594 23.258l-.012.002l-.071.035l-.02.004l-.014-.004l-.071-.036q-.016-.004-.024.006l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.016-.018m.264-.113l-.014.002l-.184.093l-.01.01l-.003.011l.018.43l.005.012l.008.008l.201.092q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.003-.011l.018-.43l-.003-.012l-.01-.01z"></path>
+                        <path d="M9.107 5.448c.598-1.75 3.016-1.803 3.725-.159l.06.16l.807 2.36a4 4 0 0 0 2.276 2.411l.217.081l2.36.806c1.75.598 1.803 3.016.16 3.725l-.16.06l-2.36.807a4 4 0 0 0-2.412 2.276l-.081.216l-.806 2.361c-.598 1.75-3.016 1.803-3.724.16l-.062-.16l-.806-2.36a4 4 0 0 0-2.276-2.412l-.216-.081l-2.36-.806c-1.751-.598-1.804-3.016-.16-3.724l.16-.062l2.36-.806A4 4 0 0 0 8.22 8.025l.081-.216zM11 6.094l-.806 2.36a6 6 0 0 1-3.49 3.649l-.25.091l-2.36.806l2.36.806a6 6 0 0 1 3.649 3.49l.091.25l.806 2.36l.806-2.36a6 6 0 0 1 3.49-3.649l.25-.09l2.36-.807l-2.36-.806a6 6 0 0 1-3.649-3.49l-.09-.25zM19 2a1 1 0 0 1 .898.56l.048.117l.35 1.026l1.027.35a1 1 0 0 1 .118 1.845l-.118.048l-1.026.35l-.35 1.027a1 1 0 0 1-1.845.117l-.048-.117l-.35-1.026l-1.027-.35a1 1 0 0 1-.118-1.845l.118-.048l1.026-.35l.35-1.027A1 1 0 0 1 19 2"
+                              fill="currentColor"></path>
+                    </g>
+                </svg>
+                Ask Our AI for Help
             </div>
         </div>
+    </div>
 
-        <div id="aiChatbox"
-             class="hidden opacity-0 translate-y-4 transition-all duration-500 w-[60%] mx-auto mt-10">
-            <div class="card">
-                <div class="chat-header">Chat</div>
-                <div class="chat-window">
-                    <ul class="message-list"></ul>
-                </div>
-                <div class="chat-input">
-                    <input type="text" class="message-input" placeholder="Type your message here">
-                    <button class="send-button">Send</button>
-                </div>
+    <div id="aiChatbox"
+         class="hidden opacity-0 translate-y-4 transition-all duration-500 w-[60%] mx-auto mt-10">
+        <div class="card">
+            <div class="chat-header">Chat</div>
+            <div class="chat-window">
+                <ul class="message-list"></ul>
+            </div>
+            <div class="chat-input">
+                <input type="text" class="message-input" placeholder="Type your message here">
+                <button class="send-button">Send</button>
             </div>
         </div>
+    </div>
 
 
 
-    </section>
+</section>
 
 
 @* Chatbox open script *@
@@ -208,6 +208,10 @@
             const resultsDiv = document.getElementById('results');
             const loading = document.getElementById('loading');
 
+            let currentData = null;
+            let currentPage = 1;
+            const pageSize = 6; // adjust as needed
+
             if (findCarBtn) {
                 findCarBtn.addEventListener('click', function() {
                     const target = document.getElementById("bottomSection");
@@ -215,8 +219,6 @@
                     executeSearch();
                 });
             }
-
-
 
             if (askAiButton && aiChatbox) {
                 askAiButton.addEventListener('click', () => {
@@ -227,7 +229,6 @@
                     });
                 });
             }
-
 
             async function executeSearch() {
                 const selected = document.querySelector('input[name="selectedCar"]:checked');
@@ -254,7 +255,9 @@
                     if (!response.ok) throw new Error('API Connectivity Issue');
 
                     const data = await response.json();
-                    renderResults(data);
+                    currentData = data;
+                    currentPage = 1;
+                    renderPage(currentPage);
                 } catch (error) {
                     resultsDiv.innerHTML = `<div class="p-4 bg-red-100 text-red-700 border-2 border-red-700 font-bold">CRITICAL ERROR: ${error.message}</div>`;
                 } finally {
@@ -263,29 +266,66 @@
                 }
             }
 
-            function renderResults(data) {
-                if (!data.listings || data.listings.length === 0) {
+            function renderPage(page) {
+                if (!currentData || !currentData.listings || currentData.listings.length === 0) {
                     resultsDiv.innerHTML = '<p class="text-center font-bold py-10">ZERO MATCHING ASSETS FOUND.</p>';
                     return;
                 }
 
+                const totalItems = currentData.listings.length;
+                const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
+                currentPage = Math.min(Math.max(1, page), totalPages);
+
+                const start = (currentPage - 1) * pageSize;
+                const pageItems = currentData.listings.slice(start, start + pageSize);
+
+                const cardsHtml = pageItems.map(car => `
+                    <div class="border-4 border-black p-6 bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[-4px] transition-transform">
+                        <h3 class="font-black text-xl uppercase italic mb-2">${car.heading}</h3>
+                        <p class="text-3xl font-black text-violet-700 mb-4">$${car.price?.toLocaleString() || 'N/A'}</p>
+                        <div class="text-[10px] font-bold space-y-1 uppercase text-gray-500 mb-4 border-t border-gray-200 pt-2">
+                            <p>Mileage: ${car.miles?.toLocaleString() || 'N/A'} MI</p>
+                            <p>Location: ${car.dealer?.city || 'Remote'}, ${car.dealer?.state || 'US'}</p>
+                        </div>
+                        <a href="${car.vdp_url}" target="_blank" class="block text-center bg-black text-white py-3 font-bold uppercase hover:bg-violet-600 transition">Inspect Car</a>
+                    </div>
+                `).join('');
+
+                // Pagination controls
+                let paginationHtml = '';
+                if (totalPages > 1) {
+                    const pages = [];
+                    for (let i = 1; i <= totalPages; i++) {
+                        pages.push(`<button data-page="${i}" class="px-3 py-1 border ${i === currentPage ? 'bg-black text-white' : 'bg-white text-black'}">${i}</button>`);
+                    }
+
+                    paginationHtml = `
+                        <div class="flex items-center justify-center gap-2 mt-6">
+                            <button id="prevPage" class="px-3 py-1 border">Prev</button>
+                            ${pages.join('')}
+                            <button id="nextPage" class="px-3 py-1 border">Next</button>
+                        </div>
+                    `;
+                }
+
                 resultsDiv.innerHTML = `
                     <div class="max-w-6xl mx-auto px-4 py-10">
-                        <h2 class="text-2xl font-black mb-6 uppercase italic border-b-4 border-black pb-2">Localized Assets: ${data.num_found}</h2>
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            ${data.listings.map(car => `
-                                <div class="border-4 border-black p-6 bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[-4px] transition-transform">
-                                    <h3 class="font-black text-xl uppercase italic mb-2">${car.heading}</h3>
-                                    <p class="text-3xl font-black text-violet-700 mb-4">$${car.price?.toLocaleString() || 'N/A'}</p>
-                                    <div class="text-[10px] font-bold space-y-1 uppercase text-gray-500 mb-4 border-t border-gray-200 pt-2">
-                                        <p>Mileage: ${car.miles?.toLocaleString() || 'N/A'} MI</p>
-                                        <p>Location: ${car.dealer?.city || 'Remote'}, ${car.dealer?.state || 'US'}</p>
-                                    </div>
-                                    <a href="${car.vdp_url}" target="_blank" class="block text-center bg-black text-white py-3 font-bold uppercase hover:bg-violet-600 transition">Inspect Car</a>
-                                </div>
-                            `).join('')}
-                        </div>
+                        <h2 class="text-2xl font-black mb-6 uppercase italic border-b-4 border-black pb-2">Localized Assets: ${currentData.num_found || totalItems}</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">${cardsHtml}</div>
+                        ${paginationHtml}
                     </div>`;
+
+                // bind pagination events
+                if (totalPages > 1) {
+                    document.getElementById('prevPage').addEventListener('click', () => renderPage(currentPage - 1));
+                    document.getElementById('nextPage').addEventListener('click', () => renderPage(currentPage + 1));
+                    document.querySelectorAll('[data-page]').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            const p = Number(e.currentTarget.getAttribute('data-page'));
+                            renderPage(p);
+                        });
+                    });
+                }
             }
         });
 

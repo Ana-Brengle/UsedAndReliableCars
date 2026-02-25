@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections;
 
 namespace UsedAndReliableCars.Controllers.api
 {
@@ -19,10 +20,10 @@ namespace UsedAndReliableCars.Controllers.api
         }
 
         [HttpGet("search")]
-        public async Task<IActionResult> Search(string? make, string? model, string? year, decimal? priceMax, string? zip, int? radius)
+        public async Task<IActionResult> Search(string? make, string? model, string? year, decimal? priceMax, string? zip, int? radius, int start = 0, int rows = 10)
         {
             var apiKey = _configuration["MarketCheck:ApiKey"];
-            var url = $"search/car/active?api_key={apiKey}";
+            var url = $"search/car/active?api_key={apiKey}&start={start}&rows={rows}";
 
             if (!string.IsNullOrEmpty(make)) {
                 url += $"&make={make}";
